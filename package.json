@@ -1,0 +1,21 @@
+{
+  "name": "tripcommend-bot",
+  "version": "1.0.0",
+  "description": "Weather-integrated Smart Experience planner Bot",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "start:dev": "nodemon ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^3.14.1",
+    "restify": "^7.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "nodemon": "^1.17.3"
+  }
+}
