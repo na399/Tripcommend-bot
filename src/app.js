@@ -24,33 +24,33 @@ bot.set('storage', new builder.MemoryBotStorage());
 // Bots Middleware
 //=========================================================
 
-bot.use(builder.Middleware.firstRun({ version: 1.0, dialogId: '*:/firstRun' }));
+bot.use(builder.Middleware.firstRun({ version: 1.0, dialogId: '*:/' }));
 bot.use(builder.Middleware.sendTyping());
 
 //=========================================================
 // Bots Global Actions
 //=========================================================
 
-// Add first run dialog
-bot.dialog('/firstRun', dialogs.firstRun).triggerAction({
-    onFindAction: function (context, callback) {
-        // Only trigger if we've never seen user before
-        if (!context.userData.firstRun) {
-            context.userData.firstRun = true;
-            // Return a score of 1.1 to ensure the first run dialog wins
-            callback(null, 1.1);
-        } else {
-            callback(null, 0.0);
-        }
-    }
-});
+// // Add first run dialog
+// bot.dialog('/firstRun', dialogs.firstRun).triggerAction({
+//     onFindAction: function (context, callback) {
+//         // Only trigger if we've never seen user before
+//         if (!context.userData.firstRun) {
+//             context.userData.firstRun = true;
+//             // Return a score of 1.1 to ensure the first run dialog wins
+//             callback(null, 1.1);
+//         } else {
+//             callback(null, 0.0);
+//         }
+//     }
+// });
 
 
 // Delete session.userData
 bot.dialog('/resetUser', (session) => {
     session.userData = {};
     session.endDialog('User reset!');
-    session.beginDialog('/firstRun');
+    session.beginDialog('/');
 }).triggerAction({
     matches: /^RESET/i,
     confirmPrompt: "Confirm RESET this user?"
@@ -60,6 +60,7 @@ bot.dialog('/resetUser', (session) => {
 // Bots Dialogs
 //=========================================================
 
+bot.dialog('/', dialogs.firstRun)
 bot.dialog('/onboarding', dialogs.onboarding);
 bot.dialog('/flight', dialogs.flight);
 
