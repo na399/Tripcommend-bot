@@ -2,6 +2,8 @@ const builder = require('botbuilder');
 const axios = require("axios");
 var qs = require("querystring");
 var http = require("http");
+var request = require("request");
+
 
 // functions go here
 
@@ -46,6 +48,60 @@ module.exports = [
         .catch(error => {
             console.log(error);
         });
+        var options = { method: 'POST',
+  url: 'http://partners.api.skyscanner.net/apiservices/pricing/v1.0',
+  headers: 
+   { 'Postman-Token': '5940ee59-655a-45a5-9c51-3ea05af91ba8',
+     'Cache-Control': 'no-cache',
+     'Content-Type': 'application/x-www-form-urlencoded' },
+  form: 
+   { cabinclass: 'Economy',
+     country: 'DK',
+     currency: 'DKK',
+     locale: 'en-US',
+     locationSchema: 'iata',
+     originplace: originPlace,
+     destinationplace: destinationPlace,
+     outbounddate: outboundPartialDate,
+     inbounddate: inboundPartialDate,
+     adults: '1',
+     children: '0',
+     infants: '0',
+     apikey: 'ha367676475536677623413270754176' } };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  function splitString(stringToSplit, separator) {
+    var arrayOfStrings = stringToSplit.split(separator);
+    var numberOfElements = arrayOfStrings.length;
+    var output = arrayOfStrings[numberOfElements - 1];
+    return output;
+  }
+  
+  var tempestString = response.headers.location;
+  
+  var space = '/';
+
+  var output = splitString(tempestString, space);
+  pollUrl = `http://partners.api.skyscanner.net/apiservices/pricing/uk1/v1.0/${output}`;
+  
+  options = { method: 'GET',
+  url: pollUrl,
+  qs: { apikey: 'ha367676475536677623413270754176' },
+  headers: 
+   { 'Postman-Token': 'f247babd-1b33-4be2-9f2b-d642b21ed1e5',
+     'Cache-Control': 'no-cache' } };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+  // console.log(response.data.Itineraries[0].DeeplinkUrl)
+  // console.log(body)
+  var json = JSON.parse(body);
+  var flightLink = json["Itineraries"][0]["PricingOptions"][0]["DeeplinkUrl"];
+  session.send(flightLink);
+});
+});
 
       
 
