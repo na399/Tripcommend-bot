@@ -25,5 +25,5 @@ run
 npm start dev
 ```
 
-run the Bot Framework emulator and connect it to http://localhost:3987 with App ID and pwd
+run the Bot Framework emulator and connect it to http://localhost:3987 with Microsoft App ID and password
 

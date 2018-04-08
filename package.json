@@ -13,8 +13,6 @@
   "dependencies": {
     "botbuilder": "^3.14.1",
     "dotenv": "^5.0.1",
-    "raccoon": "^0.2.8",
-    "redis": "^2.8.0",
     "restify": "^7.1.0"
   },
   "devDependencies": {

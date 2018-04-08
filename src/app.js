@@ -61,6 +61,7 @@ bot.dialog('/resetUser', (session) => {
 //=========================================================
 
 bot.dialog('/onboarding', dialogs.onboarding);
+bot.dialog('/flight', dialogs.flight);
 
 
 //=========================================================
