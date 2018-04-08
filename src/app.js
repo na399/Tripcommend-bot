@@ -1,7 +1,10 @@
 const restify = require('restify');
 const builder = require('botbuilder');
 
-const config = require('../config');
+if (process.env.STAGE !== "production") {
+    require('dotenv').config();
+} 
+
 const dialogs = require('./dialogs');
 
 //=========================================================
@@ -10,8 +13,8 @@ const dialogs = require('./dialogs');
 
 // Create chat bot
 const connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID || config.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD || config.MICROSOFT_APP_PASSWORD
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 const bot = new builder.UniversalBot(connector);
 // Register in-memory storage
