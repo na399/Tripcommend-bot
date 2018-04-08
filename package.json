@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "botbuilder": "^3.14.1",
     "dotenv": "^5.0.1",
     "restify": "^7.1.0"
